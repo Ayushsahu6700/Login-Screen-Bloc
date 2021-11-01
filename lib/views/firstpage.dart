@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'otpScreen.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -84,14 +85,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                                horizontal: 4, vertical: 4),
                             child: Container(
                               width: 2 * MediaQuery.of(context).size.width / 3,
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 autofocus: false,
-                                style: TextStyle(fontSize: 25),
+                                style: TextStyle(fontSize: 20),
                                 decoration: InputDecoration(
                                   hintText: 'Mobile Number',
                                   contentPadding: EdgeInsets.symmetric(
@@ -119,7 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return otpScreen();
+                          }));
+                        },
                         child: Container(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
