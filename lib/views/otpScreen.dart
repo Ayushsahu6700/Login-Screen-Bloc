@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'homePage.dart';
+
 class otpScreen extends StatefulWidget {
   @override
   _otpScreenState createState() => _otpScreenState();
@@ -117,7 +119,12 @@ class _otpScreenState extends State<otpScreen> {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HomePage();
+                        }));
+                      },
                       child: Container(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
