@@ -8,6 +8,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String mob = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         BorderRadius.all(Radius.circular(32.0)),
                                   ),
                                 ),
+                                onChanged: (value) {
+                                  mob = value.toString();
+                                },
                               ),
                             ),
                           ),
@@ -123,7 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return otpScreen();
+                            return otpScreen(
+                              mob: mob,
+                            );
                           }));
                         },
                         child: Container(
