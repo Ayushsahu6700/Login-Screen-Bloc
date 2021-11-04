@@ -1,5 +1,7 @@
+import 'package:bloc/components/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../components/constants.dart';
 import 'otpScreen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -94,27 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 keyboardType: TextInputType.number,
                                 autofocus: false,
                                 style: TextStyle(fontSize: 20),
-                                decoration: InputDecoration(
-                                  hintText: 'Mobile Number',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 20.0),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32.0)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.blue, width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32.0)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.blue, width: 2.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32.0)),
-                                  ),
-                                ),
+                                decoration: kTextFieldDecoration.copyWith(
+                                    hintText: 'Mobile Number'),
                                 onChanged: (value) {
                                   mob = value.toString();
                                 },
@@ -123,7 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      ElevatedButton(
+                      RoundedButton(
+                        colour: Colors.blue,
+                        title: "Send Otp",
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
@@ -132,15 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             );
                           }));
                         },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Next",
-                              style: TextStyle(fontSize: 30),
-                            ),
-                          ),
-                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),

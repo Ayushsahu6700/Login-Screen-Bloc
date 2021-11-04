@@ -1,3 +1,4 @@
+import 'package:bloc/components/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -78,7 +79,7 @@ class _otpScreenState extends State<otpScreen> {
                         padding: const EdgeInsets.all(18.0),
                         child: OTPTextField(
                           length: 5,
-                          width: 3 * MediaQuery.of(context).size.width / 5,
+                          width: MediaQuery.of(context).size.width,
                           fieldWidth: 40,
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w700),
@@ -92,22 +93,15 @@ class _otpScreenState extends State<otpScreen> {
                           },
                         ),
                       ),
-                      ElevatedButton(
+                      RoundedButton(
+                        colour: Colors.deepPurpleAccent,
+                        title: "Next",
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return HomePage();
                           }));
                         },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Next",
-                              style: TextStyle(fontSize: 30),
-                            ),
-                          ),
-                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
