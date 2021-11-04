@@ -1,4 +1,5 @@
 import 'package:bloc/components/widgets.dart';
+import 'package:bloc/controllers/mobilebloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/constants.dart';
@@ -11,6 +12,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String mob = "";
+  String error = "";
+  final mobileBloc = MobileBloc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     hintText: 'Mobile Number'),
                                 onChanged: (value) {
                                   mob = value.toString();
+                                  print(value);
                                 },
                               ),
                             ),
@@ -110,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         colour: Colors.blue,
                         title: "Send Otp",
                         onPressed: () {
+                          mobileBloc.eventSink.add(mob);
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return otpScreen(
@@ -120,7 +125,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(""),
+                        child: StreamBuilder(
+                            stream: mobileBloc.mobileStream,
+                            builder: (context, snapshot) {
+                              return Text(
+                                  '${snapshot.data == null ? "" : snapshot.data}',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w900));
+                            }),
                       ),
                     ],
                   ),
