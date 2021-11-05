@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'homePage.dart';
+import 'package:bloc/controllers/otpController.dart';
 
 class otpScreen extends StatefulWidget {
   String mob;
@@ -12,6 +13,9 @@ class otpScreen extends StatefulWidget {
 }
 
 class _otpScreenState extends State<otpScreen> {
+  final otpBloc = OtpBloc();
+  String pin = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,11 +89,11 @@ class _otpScreenState extends State<otpScreen> {
                               fontSize: 17, fontWeight: FontWeight.w700),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
                           fieldStyle: FieldStyle.underline,
-                          onChanged: (pin) {
-                            print("Completed: " + pin);
+                          onChanged: (value) {
+                            pin = value.toString();
                           },
-                          onCompleted: (pin) {
-                            print(pin);
+                          onCompleted: (value) {
+                            print(value);
                           },
                         ),
                       ),
@@ -97,15 +101,27 @@ class _otpScreenState extends State<otpScreen> {
                         colour: Colors.deepPurpleAccent,
                         title: "Next",
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return HomePage();
-                          }));
+                          otpBloc.eventSink.add(pin);
+                          if (pin == "11111") {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomePage();
+                            }));
+                          }
                         },
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(""),
+                        child: StreamBuilder(
+                            stream: otpBloc.otpStream,
+                            builder: (context, snapshot) {
+                              return Text(
+                                  '${snapshot.data == null ? "" : snapshot.data}',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w900));
+                            }),
                       ),
                     ],
                   ),

@@ -14,6 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String mob = "";
   String error = "";
   final mobileBloc = MobileBloc();
+  TextEditingController mobileController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 autofocus: false,
+                                controller: mobileController,
                                 style: TextStyle(fontSize: 20),
                                 decoration: kTextFieldDecoration.copyWith(
                                     hintText: 'Mobile Number'),
@@ -115,12 +117,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: "Send Otp",
                         onPressed: () {
                           mobileBloc.eventSink.add(mob);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return otpScreen(
-                              mob: mob,
-                            );
-                          }));
+                          if (mob.length == 10) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return otpScreen(
+                                mob: mob,
+                              );
+                            }));
+                          } else {
+                            mobileController.clear();
+                          }
                         },
                       ),
                       Padding(
