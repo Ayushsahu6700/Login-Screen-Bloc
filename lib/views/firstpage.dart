@@ -15,16 +15,17 @@ class _MyHomePageState extends State<MyHomePage>
   String mob = "";
   String error = "";
   late AnimationController controller;
+  late Animation animation;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 1000),
       vsync: this,
-      upperBound: 100,
       lowerBound: 0,
     );
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
     controller.forward();
     controller.addListener(() {
       setState(() {});
@@ -69,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage>
                 SizedBox(
                   height: (MediaQuery.of(context).size.height / 5) +
                       100 -
-                      (controller.value),
+                      (animation.value * 100),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -81,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage>
                   ),
                   height: (4 * MediaQuery.of(context).size.height / 5) -
                       100 +
-                      controller.value,
+                      animation.value * 100,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 controller: mobileController,
                                 textAlign: TextAlign.center,
                                 style:
-                                    TextStyle(fontSize: 30, letterSpacing: 2),
+                                    TextStyle(fontSize: 20, letterSpacing: 2),
                                 decoration: kTextFieldDecoration.copyWith(
                                     hintText: 'Mobile Number'),
                                 onChanged: (value) {

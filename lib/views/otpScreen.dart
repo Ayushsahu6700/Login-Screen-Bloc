@@ -18,16 +18,17 @@ class _otpScreenState extends State<otpScreen>
   final otpBloc = OtpBloc();
   String pin = "";
   late AnimationController controller;
+  late Animation animation;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 1500),
       vsync: this,
-      upperBound: 100,
-      lowerBound: 0,
     );
+    animation =
+        CurvedAnimation(parent: controller, curve: Curves.easeInOutBack);
     controller.forward();
     controller.addListener(() {
       setState(() {});
@@ -69,7 +70,7 @@ class _otpScreenState extends State<otpScreen>
                 SizedBox(
                   height: (MediaQuery.of(context).size.height / 5) +
                       100 -
-                      controller.value,
+                      animation.value * 100,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -81,7 +82,7 @@ class _otpScreenState extends State<otpScreen>
                   ),
                   height: (4 * MediaQuery.of(context).size.height / 5) -
                       100 +
-                      controller.value,
+                      animation.value * 100,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -89,8 +90,8 @@ class _otpScreenState extends State<otpScreen>
                       ClipRRect(
                         child: Image.asset(
                           "assets/OTP.jpg",
-                          height: 150 + controller.value,
-                          width: 150 + controller.value,
+                          height: 50.0 + animation.value * 200,
+                          width: 50.0 + animation.value * 200,
                         ),
                       ),
                       Padding(
