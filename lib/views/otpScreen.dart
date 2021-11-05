@@ -1,6 +1,7 @@
 import 'package:bloc/components/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'homePage.dart';
 import 'package:bloc/controllers/otpController.dart';
@@ -12,9 +13,26 @@ class otpScreen extends StatefulWidget {
   _otpScreenState createState() => _otpScreenState();
 }
 
-class _otpScreenState extends State<otpScreen> {
+class _otpScreenState extends State<otpScreen>
+    with SingleTickerProviderStateMixin {
   final otpBloc = OtpBloc();
   String pin = "";
+  late AnimationController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+      upperBound: 100,
+      lowerBound: 0,
+    );
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +67,9 @@ class _otpScreenState extends State<otpScreen> {
             Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: (MediaQuery.of(context).size.height / 5) +
+                      100 -
+                      controller.value,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -59,7 +79,9 @@ class _otpScreenState extends State<otpScreen> {
                       topRight: Radius.circular(25),
                     ),
                   ),
-                  height: 4 * MediaQuery.of(context).size.height / 5,
+                  height: (4 * MediaQuery.of(context).size.height / 5) -
+                      100 +
+                      controller.value,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,8 +89,8 @@ class _otpScreenState extends State<otpScreen> {
                       ClipRRect(
                         child: Image.asset(
                           "assets/OTP.jpg",
-                          height: 250,
-                          width: 250,
+                          height: 150 + controller.value,
+                          width: 150 + controller.value,
                         ),
                       ),
                       Padding(
@@ -88,7 +110,8 @@ class _otpScreenState extends State<otpScreen> {
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w700),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
-                          fieldStyle: FieldStyle.underline,
+                          fieldStyle: FieldStyle.box,
+                          outlineBorderRadius: 25,
                           onChanged: (value) {
                             pin = value.toString();
                           },

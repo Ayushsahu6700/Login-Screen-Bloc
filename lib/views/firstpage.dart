@@ -10,9 +10,27 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   String mob = "";
   String error = "";
+  late AnimationController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+      upperBound: 100,
+      lowerBound: 0,
+    );
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
   final mobileBloc = MobileBloc();
   TextEditingController mobileController = TextEditingController();
   @override
@@ -46,9 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: (MediaQuery.of(context).size.height / 5) +
+                      100 -
+                      (controller.value),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -58,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       topRight: Radius.circular(25),
                     ),
                   ),
-                  height: 4 * MediaQuery.of(context).size.height / 5,
+                  height: (4 * MediaQuery.of(context).size.height / 5) -
+                      100 +
+                      controller.value,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 keyboardType: TextInputType.number,
                                 autofocus: false,
                                 controller: mobileController,
-                                style: TextStyle(fontSize: 20),
+                                textAlign: TextAlign.center,
+                                style:
+                                    TextStyle(fontSize: 30, letterSpacing: 2),
                                 decoration: kTextFieldDecoration.copyWith(
                                     hintText: 'Mobile Number'),
                                 onChanged: (value) {
