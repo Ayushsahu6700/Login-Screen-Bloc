@@ -5,6 +5,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'homePage.dart';
 import 'package:bloc/controllers/otpController.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 class otpScreen extends StatefulWidget {
   String mob;
@@ -52,16 +53,7 @@ class _otpScreenState extends State<otpScreen>
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: Text(
-                      "OTP Verification",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 30),
-                    ),
-                  ),
+                  Heading(size: 30, text: "OTP Verification"),
                 ],
               ),
             ),
@@ -123,7 +115,7 @@ class _otpScreenState extends State<otpScreen>
                       ),
                       RoundedButton(
                         colour: Colors.deepPurpleAccent,
-                        title: "Next",
+                        title: "Verify Otp",
                         onPressed: () {
                           otpBloc.eventSink.add(pin);
                           if (pin == "11111") {

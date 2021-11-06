@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/constants.dart';
 import 'otpScreen.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage>
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 1500),
       vsync: this,
       lowerBound: 0,
     );
@@ -51,16 +52,7 @@ class _MyHomePageState extends State<MyHomePage>
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: Text(
-                      "Login Page",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 50),
-                    ),
-                  ),
+                  Heading(size: 50, text: "Login Page")
                 ],
               ),
             ),
@@ -139,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage>
                         ],
                       ),
                       RoundedButton(
-                        colour: Colors.blue,
+                        colour: Colors.indigo,
                         title: "Send Otp",
                         onPressed: () {
                           mobileBloc.eventSink.add(mob);
