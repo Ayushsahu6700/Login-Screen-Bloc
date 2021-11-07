@@ -123,6 +123,10 @@ class _otpScreenState extends State<otpScreen>
                           length: 5,
                           width: MediaQuery.of(context).size.width,
                           fieldWidth: 40,
+                          otpFieldStyle: OtpFieldStyle(
+                              backgroundColor: Colors.blue.shade50,
+                              enabledBorderColor: Colors.deepPurple,
+                              errorBorderColor: Colors.red),
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w700),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
@@ -132,7 +136,7 @@ class _otpScreenState extends State<otpScreen>
                             pin = value.toString();
                           },
                           onCompleted: (value) {
-                            print(value);
+                            otpBloc.eventSink.add(pin);
                           },
                         ),
                       ),

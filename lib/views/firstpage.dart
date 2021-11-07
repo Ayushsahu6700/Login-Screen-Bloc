@@ -96,12 +96,12 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(
                           "Enter Your Phone Number", //
 
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w900),
+                              fontSize: 25, fontWeight: FontWeight.w900),
                         ),
                       ),
                       Row(
