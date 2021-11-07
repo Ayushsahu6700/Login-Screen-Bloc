@@ -20,6 +20,7 @@ class _otpScreenState extends State<otpScreen>
   String pin = "";
   late AnimationController controller;
   late Animation animation;
+  late Animation animation2;
   @override
   void initState() {
     // TODO: implement initState
@@ -30,10 +31,19 @@ class _otpScreenState extends State<otpScreen>
     );
     animation =
         CurvedAnimation(parent: controller, curve: Curves.easeInOutBack);
+    animation2 = ColorTween(begin: Colors.black, end: Colors.blue[900])
+        .animate(controller);
     controller.forward();
     controller.addListener(() {
       setState(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    otpBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,7 +55,7 @@ class _otpScreenState extends State<otpScreen>
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Colors.blue[900],
+              color: animation2.value,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +63,20 @@ class _otpScreenState extends State<otpScreen>
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 10,
                   ),
-                  Heading(size: 30, text: "OTP Verification"),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 30,
+                          )),
+                      Heading(size: 30, text: "OTP Verification"),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/constants.dart';
 import 'otpScreen.dart';
-import 'package:show_up_animation/show_up_animation.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -17,6 +16,7 @@ class _MyHomePageState extends State<MyHomePage>
   String error = "";
   late AnimationController controller;
   late Animation animation;
+  late Animation animation2;
   @override
   void initState() {
     // TODO: implement initState
@@ -27,10 +27,19 @@ class _MyHomePageState extends State<MyHomePage>
       lowerBound: 0,
     );
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
+    animation2 = ColorTween(begin: Colors.black, end: Colors.blue[900])
+        .animate(controller);
     controller.forward();
     controller.addListener(() {
       setState(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    mobileBloc.dispose();
+    super.dispose();
   }
 
   final mobileBloc = MobileBloc();
@@ -44,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage>
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Colors.blue[900],
+              color: animation2.value,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage>
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 10,
                   ),
-                  Heading(size: 50, text: "Login Page")
+                  Heading(size: 40, text: "Login Page")
                 ],
               ),
             ),

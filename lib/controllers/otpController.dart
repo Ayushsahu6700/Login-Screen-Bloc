@@ -27,4 +27,8 @@ class OtpBloc {
       otpSink.add(error);
     });
   }
+  void dispose() {
+    _stateStreamController.close();
+    _eventStreamController.close();
+  }
 }

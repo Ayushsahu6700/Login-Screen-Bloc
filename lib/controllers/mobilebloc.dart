@@ -27,4 +27,8 @@ class MobileBloc {
       mobileSink.add(error);
     });
   }
+  void dispose() {
+    _stateStreamController.close();
+    _eventStreamController.close();
+  }
 }
